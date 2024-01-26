@@ -1,9 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { invoke } from "@tauri-apps/api/tauri";
-    import StorageCard from "$lib/StorageCard.svelte";
+    import DriveCard from "../components/DriveCard.svelte";
 
-    let output: StorageModel[] = [];
+    let output: DriverModel[] = [];
 
     onMount(async () => {
         output = await invoke("get_all_drivers");
@@ -11,10 +11,16 @@
 </script>
 
 {#if output}
-    Found storages:
+    <h2>Drivers Founded:</h2>
     <div>
         {#each output as storage}
-            <StorageCard storageData={storage} />
+            <DriveCard storageData={storage} />
         {/each}
     </div>
 {/if}
+
+<style>
+    h2 {
+        text-align: center;
+    }
+</style>

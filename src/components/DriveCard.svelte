@@ -2,7 +2,7 @@
     import { invoke } from "@tauri-apps/api/tauri";
     import ProgressBar from "./ProgressBar.svelte";
 
-    export let storageData: StorageModel;
+    export let storageData: DriverModel;
 
     const imagePath = "ssd-image.png";
 

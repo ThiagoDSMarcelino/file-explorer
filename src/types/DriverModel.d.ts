@@ -1,4 +1,4 @@
-type StorageModel = {
+type DriverModel = {
     name: String,
     kind: String,
     dir: String,

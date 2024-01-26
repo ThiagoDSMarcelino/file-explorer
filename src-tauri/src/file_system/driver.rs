@@ -1,10 +1,9 @@
-#![allow(dead_code)]
-
 use serde::Serialize;
 use sysinfo::{Disk, Disks};
 
 use crate::file_system::bytes_converter::bytes_to_gigabytes;
 
+/// Represents a driver in the file system.
 #[derive(Debug, Serialize)]
 pub(crate) struct Driver {
     name: String,
@@ -16,6 +15,15 @@ pub(crate) struct Driver {
 }
 
 impl Driver {
+    /// Creates a new `Driver` instance from a `Disk` object.
+    ///
+    /// # Arguments
+    ///
+    /// * `disk` - The `Disk` object to create the `Driver` from.
+    ///
+    /// # Returns
+    ///
+    /// A new `Driver` instance.
     fn from_disk(disk: &Disk) -> Self {
         let space = disk.total_space();
 
@@ -30,6 +38,11 @@ impl Driver {
     }
 }
 
+/// Retrieves information about all drivers in the system.
+///
+/// # Returns
+///
+/// A vector of `Driver` instances representing all the drivers in the system.
 #[tauri::command]
 pub fn get_all_drivers() -> Vec<Driver> {
     let disks = Disks::new_with_refreshed_list();
