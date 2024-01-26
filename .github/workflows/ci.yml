@@ -15,23 +15,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up Rust
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+
+      - name: Tauri dependencies
+        run: >-
+            sudo apt-get update &&
+            sudo apt-get install -y
+            libgtk-3-dev
+            libayatana-appindicator3-dev
+            libwebkit2gtk-4.0-dev
+            webkit2gtk-driver
+            xvfb
+
+      - name: Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+
+      - name: Install Cargo Audit
+        run: cargo install cargo-audit
     
-    - name: Install Clippy
-      run: rustup component add clippy
-    - name: Install Cargo Audit
-      run: cargo install cargo-audit
-    
-    - name: Build
-      run: |
-        cd src-tauri
-        cargo build --verbose
-    - name: Clippy
-      run: |
-        cd src-tauri
-        cargo clippy --verbose --all-targets --all-features
-    - name: Audit
-      run: |
-        cd src-tauri
-        cargo audit
+      - name: Cargo build
+        run: cargo build --release
+        working-directory: ./src-tauri
+        
+      - name: Cargo Clippy
+        run: cargo clippy --release  --verbose --all-targets --all-features
+        working-directory: ./src-tauri
+        
+      - name: Cargo Audit
+        run: cargo audit
+        working-directory: ./src-tauri
