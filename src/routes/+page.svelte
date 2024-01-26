@@ -12,9 +12,9 @@
 
 {#if output}
     <h2>Drivers Founded:</h2>
-    <div>
+    <div class="container">
         {#each output as storage}
-            <DriveCard storageData={storage} />
+            <DriveCard driver={storage} />
         {/each}
     </div>
 {/if}
@@ -22,5 +22,12 @@
 <style>
     h2 {
         text-align: center;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        row-gap: 16px;
+        column-gap: 16px;
     }
 </style>

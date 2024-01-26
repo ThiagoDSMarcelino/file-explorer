@@ -2,13 +2,13 @@
     import { invoke } from "@tauri-apps/api/tauri";
     import ProgressBar from "./ProgressBar.svelte";
 
-    export let storageData: DriverModel;
+    export let driver: DriverModel;
 
-    const imagePath = "ssd-image.png";
+    const imagePath = driver.kind.toLocaleLowerCase() + ".png";
 
     const cardClicked = async () => {
         const res = await invoke("get_data_from_dir", {
-            path: storageData.dir,
+            path: driver.dir,
         });
 
         console.log(res);
@@ -19,16 +19,13 @@
     <div class="card-content">
         <img src={imagePath} alt="Storage" />
         <div class="info">
-            <h3>{storageData.name} - {storageData.dir}</h3>
-            <p><strong>Driver Kind:</strong> {storageData.kind}</p>
-            <p><strong>File System:</strong> {storageData.file_system}</p>
+            <h3>{driver.name} - {driver.dir}</h3>
+            <p><strong>Driver Kind:</strong> {driver.kind}</p>
+            <p><strong>File System:</strong> {driver.file_system}</p>
         </div>
     </div>
 
-    <ProgressBar
-        progress={storageData.used_space}
-        max={storageData.total_space}
-    />
+    <ProgressBar progress={driver.used_space} max={driver.total_space} />
 </button>
 
 <style>
@@ -38,17 +35,16 @@
     }
 
     img {
-        max-width: 10vw;
-        max-height: 10vw;
+        max-width: 40%;
+        max-height: 40%;
         object-fit: cover;
     }
 
     .card {
         cursor: pointer;
-        width: 40vw;
+        width: 100%;
         border: 1px solid black;
         padding: 10px 12px;
-        margin: 8px 0;
         border-radius: 8px;
         height: fit-content;
         display: flex;
@@ -59,7 +55,7 @@
     .card-content {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 20px;
     }
 
     .info {
