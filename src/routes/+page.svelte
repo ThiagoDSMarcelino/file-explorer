@@ -6,7 +6,7 @@
     let output: StorageModel[] = [];
 
     onMount(async () => {
-        output = await invoke("get_all_storages");
+        output = await invoke("get_all_drivers");
     });
 </script>
 

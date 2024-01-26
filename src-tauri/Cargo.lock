@@ -71,6 +71,7 @@ dependencies = [
  "sysinfo",
  "tauri",
  "tauri-build",
+ "thiserror",
 ]
 
 [[package]]

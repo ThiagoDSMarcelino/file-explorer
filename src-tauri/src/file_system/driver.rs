@@ -6,7 +6,7 @@ use sysinfo::{Disk, Disks};
 use crate::file_system::bytes_converter::bytes_to_gigabytes;
 
 #[derive(Debug, Serialize)]
-pub(crate) struct Storage {
+pub(crate) struct Driver {
     name: String,
     kind: String,
     dir: String,
@@ -15,7 +15,7 @@ pub(crate) struct Storage {
     used_space: f64,
 }
 
-impl Storage {
+impl Driver {
     fn from_disk(disk: &Disk) -> Self {
         let space = disk.total_space();
 
@@ -31,8 +31,8 @@ impl Storage {
 }
 
 #[tauri::command]
-pub fn get_all_storages() -> Vec<Storage> {
+pub fn get_all_drivers() -> Vec<Driver> {
     let disks = Disks::new_with_refreshed_list();
 
-    disks.list().iter().map(Storage::from_disk).collect()
+    disks.list().iter().map(Driver::from_disk).collect()
 }

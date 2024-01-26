@@ -1,12 +1,17 @@
 <script lang="ts">
+    import { invoke } from "@tauri-apps/api/tauri";
     import ProgressBar from "./ProgressBar.svelte";
 
     export let storageData: StorageModel;
 
     const imagePath = "ssd-image.png";
 
-    const cardClicked = () => {
-        console.log("Disk selected!");
+    const cardClicked = async () => {
+        const res = await invoke("get_data_from_dir", {
+            path: storageData.dir,
+        });
+
+        console.log(res);
     };
 </script>
 
