@@ -6,7 +6,7 @@
     "distDir": "../public"
   },
   "package": {
-    "productName": "file-manager",
+    "productName": "file-explorer",
     "version": "0.1.0"
   },
   "tauri": {
@@ -57,7 +57,7 @@
         "fullscreen": false,
         "height": 800,
         "resizable": true,
-        "title": "file-manager",
+        "title": "file-explorer",
         "width": 576,
         "x": 1244,
         "y": 0
