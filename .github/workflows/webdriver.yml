@@ -27,15 +27,12 @@ jobs:
           toolchain: stable
 
       - name: Cargo test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
+        run: cargo test
+        working-directory: ./src-tauri
 
       - name: Cargo build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release
+        run: cargo build --release
+        working-directory: ./src-tauri
 
       - name: Node v16
         uses: actions/setup-node@v2
@@ -47,10 +44,8 @@ jobs:
         working-directory: webdriver/webdriverio
 
       - name: Install tauri-driver
-        uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: tauri-driver
+        run: cargo add tauri-driver
+        working-directory: ./src-tauri
 
       - name: WebdriverIO
         run: xvfb-run yarn test
